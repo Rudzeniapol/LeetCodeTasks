@@ -1,11 +1,40 @@
 ﻿
+using System.Text;
+
 class Program
 {
     static void Main()
     {
-        Console.WriteLine("Hello World!");
+        Console.WriteLine(LongestCommonPrefix(["flower", "flow", "flight"]));
     }
 
+    public static string LongestCommonPrefix(string[] strs)
+    {
+        bool flag = false;
+        StringBuilder res = new StringBuilder();
+        int minLen = strs.Min(str => str.Length);
+        for (int i = 0; i < minLen; i++)
+        {
+            res.Append(strs[0][i]);
+            foreach (string str in strs)
+            {
+                if (!str.StartsWith(res.ToString()))
+                {
+                    flag = true;
+                    break;
+                }
+                
+            }
+
+            if(flag)
+            {
+                res.Remove(res.Length - 1, 1);
+                break;
+            }
+        }
+        return res.ToString();
+    }
+    
     public static int RomanToInt(string s)
     {
         int result = 0;
