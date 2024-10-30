@@ -1,11 +1,12 @@
 ﻿
+using System.Diagnostics;
 using System.Text;
 
 class Program
 {
     static void Main()
     {
-        Console.WriteLine(LongestCommonPrefix(["flower", "flow", "flight"]));
+        Console.WriteLine(IsValid("()"));
     }
 
     public static string LongestCommonPrefix(string[] strs)
@@ -86,5 +87,61 @@ class Program
             }
         }   
         return result;
+    }
+    
+    public static bool IsValid(string s) {
+            Stack<char> stack = new Stack<char>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(' || s[i] == '{' || s[i] == '[')
+                {
+                    stack.Push(s[i]);
+                }
+                else
+                {
+                    if (stack.Count == 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        char popped = stack.Pop();
+                        switch (popped)
+                        {
+                            case '[':
+                                if (s[i] != ']')
+                                {
+                                    return false;
+                                }
+
+                                break;
+                            case '{':
+                                if (s[i] != '}')
+                                {
+                                    return false;
+                                }
+
+                                break;
+                            case '(':
+                                if (s[i] != ')')
+                                {
+                                    return false;
+                                }
+
+                                break;
+                        }
+                    }
+                }
+            }
+
+            if (stack.Count == 0)
+            {
+                return true;                
+            }
+            else
+            {
+                return false;
+            }
+
     }
 }
